@@ -14,17 +14,17 @@ SearchController::SearchController() {
 
   result.fingerAngle = M_PI/2;
   result.wristAngle = M_PI/4;
+
 }
 
 void SearchController::Reset() {
   result.reset = false;
 }
-
+int t = 0;
 /**
  * This code implements a basic random walk search.
  */
 Result SearchController::DoWork() {
-
   if (!result.wpts.waypoints.empty()) {
     if (hypot(result.wpts.waypoints[0].x-currentLocation.x, result.wpts.waypoints[0].y-currentLocation.y) < 0.15) {
       attemptCount = 0;
@@ -52,15 +52,37 @@ Result SearchController::DoWork() {
     {
       first_waypoint = false;
       searchLocation.theta = currentLocation.theta + M_PI;
-      searchLocation.x = currentLocation.x + (0.5 * cos(searchLocation.theta));
-      searchLocation.y = currentLocation.y + (0.5 * sin(searchLocation.theta));
+      searchLocation.x = currentLocation.x + (starting_dist * cos(searchLocation.theta));
+      searchLocation.y = currentLocation.y + (starting_dist * sin(searchLocation.theta));
     }
     else
     {
+      
+      // logarithmic spiral
+
       //select new heading from Gaussian distribution around current heading
-      searchLocation.theta = rng->gaussian(currentLocation.theta, 0.785398); //45 degrees in radians
-      searchLocation.x = currentLocation.x + (0.5 * cos(searchLocation.theta));
-      searchLocation.y = currentLocation.y + (0.5 * sin(searchLocation.theta));
+      //searchLocation.theta = gaussian(currentLocation.theta, 3.14159); //180
+      //searchLocation.theta = rng->gaussian(currentLocation.theta, 0.785398); //45 degrees in radians
+      t++;
+/*      searchLocation.theta = currentLocation.theta + M_PI;
+      	searchLocation.x = currentLocation.x + (50 * cos(searchLocation.theta));
+      	searchLocation.y = currentLocation.y + (50 * sin(searchLocation.theta));
+      *
+      //*
+      if(t == ){
+      	searchLocation.theta = currentLocation.theta + M_PI;
+      	searchLocation.x = currentLocation.x + (50 * cos(searchLocation.theta));
+      	searchLocation.y = currentLocation.y + (50 * sin(searchLocation.theta));
+      }
+      else{
+
+      }*/
+      searchLocation.theta = t + (2 * M_PI )/3;
+      searchLocation.x = t * 3*0.3*cos(searchLocation.theta);
+      searchLocation.y = t * 3*0.3*sin(searchLocation.theta);
+
+      //searchLocation.x = 2*currentLocation.x + (dist * cos(searchLocation.theta));
+      //searchLocation.y = 2*currentLocation.y + (dist * sin(searchLocation.theta));
     }
 
     result.wpts.waypoints.clear();
@@ -68,7 +90,6 @@ Result SearchController::DoWork() {
     
     return result;
   }
-
 }
 
 void SearchController::SetCenterLocation(Point centerLocation) {

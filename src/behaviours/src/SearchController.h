@@ -37,6 +37,8 @@ private:
   Point currentLocation;
   Point centerLocation;
   Point searchLocation;
+  float dist = 2.0;
+  float starting_dist = 0.5;
   int attemptCount = 0;
   //struct for returning data to ROS adapter
   Result result;

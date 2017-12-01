@@ -110,7 +110,7 @@ bool PickUpController::SetSonarData(float rangeCenter)
     targetHeld = true;
     return true;
   }
-
+  
   return false;
 
 }
