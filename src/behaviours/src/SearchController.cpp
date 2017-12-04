@@ -24,6 +24,7 @@ int t = 0;
 /**
  * This code implements a basic random walk search.
  */
+Point start_pos;
 Result SearchController::DoWork() {
   if (!result.wpts.waypoints.empty()) {
     if (hypot(result.wpts.waypoints[0].x-currentLocation.x, result.wpts.waypoints[0].y-currentLocation.y) < 0.15) {
@@ -51,9 +52,10 @@ Result SearchController::DoWork() {
     if (first_waypoint)
     {
       first_waypoint = false;
-      searchLocation.theta = currentLocation.theta + M_PI;
-      searchLocation.x = currentLocation.x + (starting_dist * cos(searchLocation.theta));
+      searchLocation.theta = currentLocation.theta + M_PI/4;
+      searchLocation.x = currentLocation.x + (starting_dist  * cos(searchLocation.theta));
       searchLocation.y = currentLocation.y + (starting_dist * sin(searchLocation.theta));
+      start_pos=searchLocation;
     }
     else
     {
@@ -61,7 +63,7 @@ Result SearchController::DoWork() {
       t++;
       //Spiral 
       if(SEARCH_TYPE == 0){
-        searchLocation.theta = t + (2 * M_PI )/3;
+        searchLocation.theta = start_pos.theta + t + (2 * M_PI )/3;
         searchLocation.x = t * 3*0.3*cos(searchLocation.theta);
         searchLocation.y = t * 3*0.3*sin(searchLocation.theta);	
       }
