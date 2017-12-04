@@ -58,31 +58,31 @@ Result SearchController::DoWork() {
     else
     {
       
-      // logarithmic spiral
-
-      //select new heading from Gaussian distribution around current heading
-      //searchLocation.theta = gaussian(currentLocation.theta, 3.14159); //180
-      //searchLocation.theta = rng->gaussian(currentLocation.theta, 0.785398); //45 degrees in radians
       t++;
-/*      searchLocation.theta = currentLocation.theta + M_PI;
-      	searchLocation.x = currentLocation.x + (50 * cos(searchLocation.theta));
-      	searchLocation.y = currentLocation.y + (50 * sin(searchLocation.theta));
-      *
-      //*
-      if(t == ){
-      	searchLocation.theta = currentLocation.theta + M_PI;
+      //Spiral 
+      if(SEARCH_TYPE == 0){
+        searchLocation.theta = t + (2 * M_PI )/3;
+        searchLocation.x = t * 3*0.3*cos(searchLocation.theta);
+        searchLocation.y = t * 3*0.3*sin(searchLocation.theta);	
+      }
+      //select new heading from Gaussian distribution around current heading
+      else if(SEARCH_TYPE == 1){
+	    searchLocation.theta = rng->gaussian(currentLocation.theta, 0.785398); //45 degrees in radians
+        searchLocation.x = currentLocation.x + (0.5 * cos(searchLocation.theta));
+        searchLocation.y = currentLocation.y + (0.5 * sin(searchLocation.theta));
+
+      }
+      //
+      else if(SEARCH_TYPE == 2){
+        searchLocation.theta = currentLocation.theta + M_PI;
       	searchLocation.x = currentLocation.x + (50 * cos(searchLocation.theta));
       	searchLocation.y = currentLocation.y + (50 * sin(searchLocation.theta));
       }
       else{
-
-      }*/
-      searchLocation.theta = t + (2 * M_PI )/3;
-      searchLocation.x = t * 3*0.3*cos(searchLocation.theta);
-      searchLocation.y = t * 3*0.3*sin(searchLocation.theta);
-
-      //searchLocation.x = 2*currentLocation.x + (dist * cos(searchLocation.theta));
-      //searchLocation.y = 2*currentLocation.y + (dist * sin(searchLocation.theta));
+        searchLocation.theta = rng->gaussian(currentLocation.theta, 3.14159); //180
+        searchLocation.x = 2*currentLocation.x + (dist * cos(searchLocation.theta));
+        searchLocation.y = 2*currentLocation.y + (dist * sin(searchLocation.theta));
+        }
     }
 
     result.wpts.waypoints.clear();

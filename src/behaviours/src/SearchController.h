@@ -26,13 +26,17 @@ public:
   void SetCurrentLocation(Point currentLocation);
   void SetCenterLocation(Point centerLocation);
   void SetSuccesfullPickup();
+  // searchtype depends on which type of search algorithm is used. 
+  // 0 for Archimedes Spiral
+  // 1 
+  // 2 Ransom
 
 protected:
 
   void ProcessData();
 
 private:
-
+  int SEARCH_TYPE = 0;
   random_numbers::RandomNumberGenerator* rng;
   Point currentLocation;
   Point centerLocation;
@@ -40,6 +44,7 @@ private:
   float dist = 2.0;
   float starting_dist = 0.5;
   int attemptCount = 0;
+
   //struct for returning data to ROS adapter
   Result result;
 
