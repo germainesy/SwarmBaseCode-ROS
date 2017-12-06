@@ -25,6 +25,8 @@ int t = 0;
  * This code implements a basic random walk search.
  */
 Point start_pos;
+Point last_cube;
+bool returnHome=false;
 Result SearchController::DoWork() {
   if (!result.wpts.waypoints.empty()) {
     if (hypot(result.wpts.waypoints[0].x-currentLocation.x, result.wpts.waypoints[0].y-currentLocation.y) < 0.15) {
@@ -37,6 +39,8 @@ Result SearchController::DoWork() {
     if (succesfullPickup) {
       succesfullPickup = false;
       attemptCount = 1;
+      last_cube=currentLocation;
+      returnHome=true;
     }
     return result;
   }
@@ -60,9 +64,9 @@ Result SearchController::DoWork() {
     else
     {
       
-      t++;
       //Spiral 
       if(SEARCH_TYPE == 0){
+         t++;
         searchLocation.theta = start_pos.theta + t + (2 * M_PI )/3;
         searchLocation.x = t * 3*0.3*cos(searchLocation.theta);
         searchLocation.y = t * 3*0.3*sin(searchLocation.theta);	
@@ -86,7 +90,10 @@ Result SearchController::DoWork() {
         searchLocation.y = 2*currentLocation.y + (dist * sin(searchLocation.theta));
         }
     }
-
+   if(returnHome){
+      searchLocation=last_cube;
+      returnHome=false;
+     }
     result.wpts.waypoints.clear();
     result.wpts.waypoints.insert(result.wpts.waypoints.begin(), searchLocation);
     
