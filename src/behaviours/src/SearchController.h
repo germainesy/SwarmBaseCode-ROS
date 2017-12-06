@@ -28,8 +28,8 @@ public:
   void SetSuccesfullPickup();
   // searchtype depends on which type of search algorithm is used. 
   // 0 for Archimedes Spiral
-  // 1 
-  // 2 Ransom
+  // 1  
+  // 2 Random search
 
 protected:
 
@@ -42,7 +42,7 @@ private:
   Point centerLocation;
   Point searchLocation;
   float dist = 2.0;
-  float starting_dist = 0;
+  float starting_dist = .25;
   int attemptCount = 0;
 
   //struct for returning data to ROS adapter
