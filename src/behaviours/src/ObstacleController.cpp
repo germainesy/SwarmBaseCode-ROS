@@ -20,7 +20,7 @@ void ObstacleController::avoidObstacle() {
 
     if(targetHeld){
 
-      else if (right < 0.0) {
+      if (right < 0.0) {
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;
@@ -48,6 +48,7 @@ void ObstacleController::avoidObstacle() {
       result.pd.setPointYaw = 0;
     }
   }
+
   else{
     /*
     else if (right < 0.8 || center < 0.8 || left < 0.8) {
@@ -60,7 +61,7 @@ void ObstacleController::avoidObstacle() {
       result.pd.setPointYaw = 0;
     }*/
     //obstacle on right side
-    else if (right < 0.8 ) {
+    if (right < 0.8 ) {
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;

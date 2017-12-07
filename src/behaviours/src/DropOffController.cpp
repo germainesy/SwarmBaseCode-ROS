@@ -34,7 +34,7 @@ Result DropOffController::DoWork() {
   cout << "8" << endl;
 
   //If we get stuck on the edge case for a while  back up/turn and try again
-  counter++;
+  /*counter++;
   if(counter > 100)
   {
     counter = 0;
@@ -45,7 +45,7 @@ Result DropOffController::DoWork() {
     result.pd.cmdVel = 0.0;
     result.pd.setPointYaw = 0;
     return result;
-  }
+  }*/
 
   int count = countLeft + countRight;
 
