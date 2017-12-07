@@ -67,11 +67,12 @@ private:
   //Previous tag count
   int prevCount;
 
+int counter=0;
 
   /*
      *  Cached External Information
      */
-
+const float K_angular = 1.0; //radians a second
   //Count of tags on the left and right, respectively
   int countLeft;
   int countRight;
@@ -83,7 +84,7 @@ private:
   //Time since modeTimer was started, in seconds
   float timerTimeElapsed;
 
-  //The amount over initialSpinSize we've gotten to
+  //The amount over initialSpinSizconst float K_angular = 1.0; //radians a seconde we've gotten to
   float spinSizeIncrease;
 
   /*
