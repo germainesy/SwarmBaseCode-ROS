@@ -18,8 +18,30 @@ void ObstacleController::Reset() {
 // Avoid crashing into objects detected by the ultraound
 void ObstacleController::avoidObstacle() {
 
+    if(targetHeld){
+
+      if (right < 0.3 || center < 0.3 || left < 0.3) {
+      result.type = precisionDriving;
+
+      result.pd.cmdAngular = -K_angular;
+
+      result.pd.setPointVel = 0.0;
+      result.pd.cmdVel = 0.0;
+      result.pd.setPointYaw = 0;
+      }
+  }
+    /*
+    else if (right < 0.8 || center < 0.8 || left < 0.8) {
+      result.type = precisionDriving;
+
+      result.pd.cmdAngular = -K_angular;
+
+      result.pd.setPointVel = 0.0;
+      result.pd.cmdVel = 0.0;
+      result.pd.setPointYaw = 0;
+    }*/
     //obstacle on right side
-    if (right < 0.8 ) {
+    else if (right < 0.8 ) {
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;
