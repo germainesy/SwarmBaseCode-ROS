@@ -324,6 +324,12 @@ void DropOffController::SetTargetData(vector<Tag> tags) {
         }
       }
     }
+    //If we see 3 or more tags on either side reset center to be directly in front of us
+    if(countLeft > 2 && countRight > 2)
+    {
+      centerLocation.x = currentLocation.x + .25;
+      centerLocation.y = currentLocation.y + .25;
+    }
   }
 
 }
