@@ -3,7 +3,7 @@
 
 
 #-------------------------READ THIS----------------------------#
-#If you have changed your rovers password you MUST edit this variable with the correct password to 
+#If you have changed your rovers password you MUST edit this variable with the correct password to
 #allow the reboot feature to work correctly!!
 roverPass="KSC-2018"
 #--------------------------------------------------------------#
@@ -29,8 +29,8 @@ Check()
 		echo "The ublox and/or april tags submodule is missing."
 		cd $dirPath; #Entering directory/local git repo (needed to run git commands)
 		echo "Initiliazing and updating ublox and april tag submodules...";
-		git submodule init;                
-		git submodule update; 
+		git submodule init;
+		git submodule update;
 	fi
 }
 
@@ -43,7 +43,7 @@ PullGit_Pack()
 		git checkout $branch &&
 		{
 			echo 'Pulling latest build on branch $branch';
-			git pull && 
+			git pull &&
 			{
 				echo 'Compiling $dirName branch $branch...';
 				catkin build &&
@@ -54,11 +54,11 @@ PullGit_Pack()
 					exit 1;
 				}
 				read stuff;
-				exit 1; 
+				exit 1;
 			}
 			read stuff;
 			exit 1;
-		}		
+		}
 		read stuff
 		exit 1;
 		/bin/bash;' exec $SHELL"
@@ -72,7 +72,7 @@ Pack()
 		{
 			echo 'Compiling $dirName';
 			catkin build &&
-			{ 
+			{
 				cd ~;
 				echo 'Packing up the repository... ';
 				tar czhf $dirName.tgz $dirName;
@@ -97,14 +97,14 @@ Unpack_Run()
 	gnome-terminal --tab -x bash -c "echo -n -e '\033]0;$roverIP\007'
 		ssh -t swarmie@$roverIP 'echo 'Unpacking $dirName.tgz ...';
 		tar xzf $dirName.tgz;
-		sleep 2;			
+		sleep 2;
 		echo 'Starting ROS nodes on swarmie at $roverIP with master at $hostName';
 		sleep 2;
 		cd $dirName/misc/;
 		./rover_onboard_node_launch.sh $hostName;
 		exit 1;
 		/bin/bash;' exec $SHELL"
-		
+
 	echo "Starting ROS nodes on swarmie at $3 with master at $hostName"
 	echo ""
 }
@@ -114,7 +114,7 @@ Run()
 	#ssh and run script from rover --WORKS
 	gnome-terminal --tab -x bash -c "echo -n -e '\033]0;$roverIP\007';
 		ssh -t swarmie@$roverIP 'echo 'Running $roverIP';
-		cd SwarmBaseCode-ROS/misc;
+		cd $dirName/misc;
 		./rover_onboard_node_launch.sh $hostName;
 		exit 1;
 		exit 1;
@@ -136,7 +136,7 @@ DispOpt()
 	if [ "$OPTION" != "-R" ]; then
 		echo "Type '-R' to run current code loaded on swarmie(s)"
 	fi
-	
+
 	if [ "$OPTION" != "-L" ]; then
 		echo "Type '-L' to transfer local code and run on swarmie(s)"
 	elif [ $OPTION == "-L" ]; then
@@ -158,7 +158,7 @@ SuccessPing()
 FailPing()
 {
 	echo "$roverIP was not found on the network.  Check IP and network settings!"
-	echo "-------------------------------------------------------------"	
+	echo "-------------------------------------------------------------"
 	sleep 4
 	echo ""
 }
@@ -409,7 +409,7 @@ elif [ $OPTION == "-G" ]; then
 				OPTION="-R"
 				clear
 				changeOption=true
-				break	
+				break
 			elif [ "$roverIP" == "-L" ]; then
 				OPTION="-L"
 				clear
@@ -433,7 +433,7 @@ elif [ $OPTION == "-G" ]; then
 				needsReboot=true
 				roverIP=${arr[i]}
 				roverIP=${roverIP^^}
-				i=$((i+1))				
+				i=$((i+1))
 			fi
 
 			#check if rebooting
@@ -448,7 +448,7 @@ elif [ $OPTION == "-G" ]; then
 			if [ $? -eq 0 ]; then
 
 				SuccessPing
-	
+
 				if [ $needsReboot == true ]; then
 					Reboot
 					echo ""
@@ -459,8 +459,8 @@ elif [ $OPTION == "-G" ]; then
 					#Transfer/Unpack/Run
 					Transfer
 					Unpack_Run
-					sleep 10	
-				fi	
+					sleep 10
+				fi
 			#if not on the network
 			else
 				FailPing
@@ -517,7 +517,7 @@ elif [ $OPTION == "-L" ]; then
 				OPTION="-G"
 				changeOption=true
 				clear
-				break	
+				break
 			elif [ $roverIP = "-R" ]; then
 				OPTION="-R"
 				changeOption=true
@@ -535,7 +535,7 @@ elif [ $OPTION == "-L" ]; then
 				needsReboot=true
 				roverIP=${arr[i]}
 				roverIP=${roverIP^^}
-				i=$((i+1))		
+				i=$((i+1))
 			fi
 
 			#check if rebooting
@@ -547,11 +547,11 @@ elif [ $OPTION == "-L" ]; then
 
 			#if we didn't just select the reboot option
 			if [ $roverIP != "REBOOT" ]; then
-	
+
 				#If rover is on the network
 				ping -q -w2 $roverIP > /dev/null
 
-				if [ $? -eq 0 ]; then	
+				if [ $? -eq 0 ]; then
 					SuccessPing
 
 					if [ $needsReboot == true ]; then
@@ -566,7 +566,7 @@ elif [ $OPTION == "-L" ]; then
 						Unpack_Run
 						sleep 10
 					fi
-	
+
 				#if not on the network
 				else
 					FailPing
@@ -610,7 +610,7 @@ elif [ $OPTION == "-R" ]; then
 			roverIP=${roverIP^^}
 
 			i=$((i+1))
-		
+
 			#check input
                         if [ "$roverIP" =  "EXIT" ]; then
 				exit 1
@@ -618,7 +618,7 @@ elif [ $OPTION == "-R" ]; then
 				OPTION="-G"
 				changeOption=true
 				clear
-				break	
+				break
 			elif [ "$roverIP" == "-L" ]; then
 				OPTION="-L"
 				changeOption=true
@@ -628,7 +628,7 @@ elif [ $OPTION == "-R" ]; then
 				needsReboot=true
 				roverIP=${arr[i]}
 				roverIP=${roverIP^^}
-				i=$((i+1))		
+				i=$((i+1))
 			fi
 
 			#check if rebooting
@@ -637,14 +637,14 @@ elif [ $OPTION == "-R" ]; then
 			else
 				echo "Running $roverIP"
 			fi
-	
+
 			#if we didn't just select the reboot option
 			if [ $roverIP != "REBOOT" ]; then
-			
+
 				#If rover is on the network
 				ping -q -w2 $roverIP > /dev/null
 				if [ $? -eq 0 ]; then
-		
+
 					SuccessPing
 
 					#reboot
@@ -658,9 +658,9 @@ elif [ $OPTION == "-R" ]; then
 						Run
 						sleep 10
 					fi
-	
+
 				#if not on the network
-				else	
+				else
 					FailPing
 					needsReboot=false
 				fi
