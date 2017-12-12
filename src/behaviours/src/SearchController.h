@@ -26,9 +26,9 @@ public:
   void SetCurrentLocation(Point currentLocation);
   void SetCenterLocation(Point centerLocation);
   void SetSuccesfullPickup();
-  // searchtype depends on which type of search algorithm is used. 
+  // searchtype depends on which type of search algorithm is used.
   // 0 for Archimedes Spiral
-  // 1  
+  // 1
   // 2 Random search
 
 protected:
@@ -36,7 +36,8 @@ protected:
   void ProcessData();
 
 private:
-  int SEARCH_TYPE = 0;
+  int t = 0;
+  int SEARCH_TYPE = 1;
   random_numbers::RandomNumberGenerator* rng;
   Point currentLocation;
   Point centerLocation;

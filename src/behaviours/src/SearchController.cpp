@@ -20,7 +20,7 @@ SearchController::SearchController() {
 void SearchController::Reset() {
   result.reset = false;
 }
-int t = 0;
+
 /**
  * This code implements a basic random walk search.
  */
@@ -44,7 +44,7 @@ Result SearchController::DoWork() {
     }
     return result;
   }
-  else if (attemptCount >= 5 || attemptCount == 0) 
+  else if (attemptCount >= 5 || attemptCount == 0)
   {
     attemptCount = 1;
 
@@ -63,13 +63,13 @@ Result SearchController::DoWork() {
     }
     else
     {
-      
-      //Spiral 
+
+      //Spiral
       if(SEARCH_TYPE == 0){
          t++;
         searchLocation.theta = start_pos.theta + t + (2 * M_PI )/3;
         searchLocation.x = t * 3*0.3*cos(searchLocation.theta);
-        searchLocation.y = t * 3*0.3*sin(searchLocation.theta);	
+        searchLocation.y = t * 3*0.3*sin(searchLocation.theta);
       }
       //select new heading from Gaussian distribution around current heading
       else if(SEARCH_TYPE == 1){
@@ -84,6 +84,25 @@ Result SearchController::DoWork() {
       	searchLocation.x = currentLocation.x + (50 * cos(searchLocation.theta));
       	searchLocation.y = currentLocation.y + (50 * sin(searchLocation.theta));
       }
+      //add waypoints to create trail to found resource
+      else if(SEARCH_TYPE == 3)
+      {
+        if(return_home)
+        {
+          searchLocation.theta = currentLocation.theta;
+          searchLocation.x = currentLocation.x;
+          searchLocation.y = currentLocation.y;
+          result.wpts.waypoints.insert(result.wpts.waypoints.begin(), searchLocation);
+        }
+        //randomly move around area that contained resource
+        else
+        {
+          searchLocation.theta = rng->gaussian(currentLocation.theta, 0.785398); //45 degrees in radians
+            searchLocation.x = currentLocation.x + (0.5 * cos(searchLocation.theta));
+            searchLocation.y = currentLocation.y + (0.5 * sin(searchLocation.theta));
+        }
+      }
+
       else{
         searchLocation.theta = rng->gaussian(currentLocation.theta, 3.14159); //180
         searchLocation.x = 2*currentLocation.x + (dist * cos(searchLocation.theta));
@@ -94,25 +113,29 @@ Result SearchController::DoWork() {
    //    searchLocation=last_cube;
    //    return_home=false;
    //   }
-    result.wpts.waypoints.clear();
+   if(!return_home)
+   {
+     result.wpts.waypoints.clear();
+   }
+
     result.wpts.waypoints.insert(result.wpts.waypoints.begin(), searchLocation);
-    
+
     return result;
   }
 }
 
 void SearchController::SetCenterLocation(Point centerLocation) {
-  
+
   float diffX = this->centerLocation.x - centerLocation.x;
   float diffY = this->centerLocation.y - centerLocation.y;
   this->centerLocation = centerLocation;
-  
+
   if (!result.wpts.waypoints.empty())
   {
   result.wpts.waypoints.back().x -= diffX;
   result.wpts.waypoints.back().y -= diffY;
   }
-  
+
 }
 
 void SearchController::SetCurrentLocation(Point currentLocation) {
@@ -135,5 +158,3 @@ bool SearchController::HasWork() {
 void SearchController::SetSuccesfullPickup() {
   succesfullPickup = true;
 }
-
-
