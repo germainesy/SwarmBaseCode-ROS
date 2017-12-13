@@ -33,20 +33,6 @@ Result DropOffController::DoWork() {
 
   cout << "8" << endl;
 
-  //If we get stuck on the edge case for a while  back up/turn and try again
-  /*counter++;
-  if(counter > 100)
-  {
-    counter = 0;
-    result.type = precisionDriving;
-    result.pd.cmdVel = -0.5;
-    result.pd.cmdAngular = K_angular;
-    result.pd.setPointVel = 0.0;
-    result.pd.cmdVel = 0.0;
-    result.pd.setPointYaw = 0;
-    return result;
-  }*/
-
   int count = countLeft + countRight;
 
   if(timerTimeElapsed > -1) {
@@ -323,12 +309,6 @@ void DropOffController::SetTargetData(vector<Tag> tags) {
           }
         }
       }
-    }
-    //If we see 3 or more tags on either side reset center to be directly in front of us
-    if(countLeft > 2 && countRight > 2)
-    {
-      centerLocation.x = currentLocation.x + .25;
-      centerLocation.y = currentLocation.y + .25;
     }
   }
 
