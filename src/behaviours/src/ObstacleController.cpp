@@ -17,19 +17,7 @@ void ObstacleController::Reset() {
 
 // Avoid crashing into objects detected by the ultraound
 void ObstacleController::avoidObstacle() {
-
-    if(targetHeld){
-
-      if (right < 0.3) {
-      result.type = precisionDriving;
-
-      result.pd.cmdAngular = -K_angular;
-
-      result.pd.setPointVel = 1.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0;
-    }
-    else if(center < 0.3){
+    if (right < 0.8 || center < 0.8 || left < 0.8) {
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;
@@ -38,71 +26,91 @@ void ObstacleController::avoidObstacle() {
       result.pd.cmdVel = 0.0;
       result.pd.setPointYaw = 0;
     }
-    else if(left < 0.3){
-      result.type = precisionDriving;
+  //   if(targetHeld){
 
-      result.pd.cmdAngular = -K_angular;
+  //     if (right < 0.3) {
+  //     result.type = precisionDriving;
 
-      result.pd.setPointVel = -1.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0;
-    }
-    else{
-      result.pd.cmdAngular = -K_angular;
+  //     result.pd.cmdAngular = -K_angular;
 
-      result.pd.setPointVel = -1.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0; 
-    }
-  }
+  //     result.pd.setPointVel = 1.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0;
+  //   }
+  //   else if(center < 0.3){
+  //     result.type = precisionDriving;
 
-  else{
-    /*
-    else if (right < 0.8 || center < 0.8 || left < 0.8) {
-      result.type = precisionDriving;
+  //     result.pd.cmdAngular = -K_angular;
 
-      result.pd.cmdAngular = -K_angular;
+  //     result.pd.setPointVel = 0.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0;
+  //   }
+  //   else if(left < 0.3){
+  //     result.type = precisionDriving;
 
-      result.pd.setPointVel = 0.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0;
-    }*/
-    //obstacle on right side
-    if (right < 0.8 ) {
-      result.type = precisionDriving;
+  //     result.pd.cmdAngular = -K_angular;
 
-      result.pd.cmdAngular = -K_angular;
+  //     result.pd.setPointVel = -1.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0;
+  //   }
+  //   else{
+  //     result.pd.cmdAngular = -K_angular;
 
-      result.pd.setPointVel = 1.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0;
-    }
-    else if(center < 0.8){
-      result.type = precisionDriving;
+  //     result.pd.setPointVel = -1.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0; 
+  //   }
+  // }
 
-      result.pd.cmdAngular = -K_angular;
+  // else{
+    
+  //   else if (right < 0.8 || center < 0.8 || left < 0.8) {
+  //     result.type = precisionDriving;
 
-      result.pd.setPointVel = 0.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0;
-    }
-    else if(left < 0.8){
-      result.type = precisionDriving;
+  //     result.pd.cmdAngular = -K_angular;
 
-      result.pd.cmdAngular = -K_angular;
+  //     result.pd.setPointVel = 0.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0;
+  //   }
+  //   //obstacle on right side
+  //   if (right < 0.8 ) {
+  //     result.type = precisionDriving;
 
-      result.pd.setPointVel = -1.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0;
-    }
-    else{
-      result.pd.cmdAngular = -K_angular;
+  //     result.pd.cmdAngular = -K_angular;
 
-      result.pd.setPointVel = -1.0;
-      result.pd.cmdVel = 0.0;
-      result.pd.setPointYaw = 0; 
-    }
-  }
+  //     result.pd.setPointVel = 1.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0;
+  //   }
+  //   else if(center < 0.8){
+  //     result.type = precisionDriving;
+
+  //     result.pd.cmdAngular = -K_angular;
+
+  //     result.pd.setPointVel = 0.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0;
+  //   }
+  //   else if(left < 0.8){
+  //     result.type = precisionDriving;
+
+  //     result.pd.cmdAngular = -K_angular;
+
+  //     result.pd.setPointVel = -1.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0;
+  //   }
+  //   else{
+  //     result.pd.cmdAngular = -K_angular;
+
+  //     result.pd.setPointVel = -1.0;
+  //     result.pd.cmdVel = 0.0;
+  //     result.pd.setPointYaw = 0; 
+  //   }
+  // }
 }
 
 // A collection zone was seen in front of the rover and we are not carrying a target
