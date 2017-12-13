@@ -111,11 +111,11 @@ Result SearchController::DoWork() {
    //    searchLocation=last_cube;
    //    return_home=false;
    //   }
-   if(!return_home)
-   {
-     result.wpts.waypoints.clear();
-   }
-
+   // if(!return_home)
+   // {
+   //   result.wpts.waypoints.clear();
+   // }
+    result.wpts.waypoints.clear();
     result.wpts.waypoints.insert(result.wpts.waypoints.begin(), searchLocation);
 
     return result;
