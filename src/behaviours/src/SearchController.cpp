@@ -63,10 +63,8 @@ Result SearchController::DoWork() {
     }
     else
     {
-
-      //Spiral
       if(SEARCH_TYPE == 0){
-         t++;
+        t++;
         searchLocation.theta = start_pos.theta + t + (2 * M_PI )/3;
         searchLocation.x = t * 3*0.3*cos(searchLocation.theta);
         searchLocation.y = t * 3*0.3*sin(searchLocation.theta);

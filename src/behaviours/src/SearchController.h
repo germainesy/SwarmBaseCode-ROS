@@ -37,7 +37,7 @@ protected:
 
 private:
   int t = 0;
-  int SEARCH_TYPE = 1;
+  int SEARCH_TYPE = 0;
   random_numbers::RandomNumberGenerator* rng;
   Point currentLocation;
   Point centerLocation;

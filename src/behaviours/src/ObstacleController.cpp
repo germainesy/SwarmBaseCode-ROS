@@ -20,7 +20,7 @@ void ObstacleController::avoidObstacle() {
 
     if(targetHeld){
 
-      if (right < 0.1) {
+      if (right < 0.3) {
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;
@@ -29,7 +29,7 @@ void ObstacleController::avoidObstacle() {
       result.pd.cmdVel = 0.0;
       result.pd.setPointYaw = 0;
     }
-    else if(center < 0.1){
+    else if(center < 0.3){
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;
@@ -38,7 +38,7 @@ void ObstacleController::avoidObstacle() {
       result.pd.cmdVel = 0.0;
       result.pd.setPointYaw = 0;
     }
-    else if(left < 0.1){
+    else if(left < 0.3){
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;
@@ -46,6 +46,13 @@ void ObstacleController::avoidObstacle() {
       result.pd.setPointVel = -1.0;
       result.pd.cmdVel = 0.0;
       result.pd.setPointYaw = 0;
+    }
+    else{
+      result.pd.cmdAngular = -K_angular;
+
+      result.pd.setPointVel = -1.0;
+      result.pd.cmdVel = 0.0;
+      result.pd.setPointYaw = 0; 
     }
   }
 
@@ -87,6 +94,13 @@ void ObstacleController::avoidObstacle() {
       result.pd.setPointVel = -1.0;
       result.pd.cmdVel = 0.0;
       result.pd.setPointYaw = 0;
+    }
+    else{
+      result.pd.cmdAngular = -K_angular;
+
+      result.pd.setPointVel = -1.0;
+      result.pd.cmdVel = 0.0;
+      result.pd.setPointYaw = 0; 
     }
   }
 }
