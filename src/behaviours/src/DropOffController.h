@@ -69,6 +69,8 @@ private:
 
 int counter=0;
 
+bool reset_Center = false;
+
   /*
      *  Cached External Information
      */

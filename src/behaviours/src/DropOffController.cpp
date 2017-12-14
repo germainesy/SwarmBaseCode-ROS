@@ -309,6 +309,11 @@ void DropOffController::SetTargetData(vector<Tag> tags) {
           }
         }
       }
+      if(countRight >3 && countLeft > 3 && reset_Center){
+        centerLocation.x = currentLocation.x + .25;
+        centerLocation.y = currentLocation.y + .25;
+        centerLocation.theta = currentLocation.theta;
+      }
     }
   }
 
