@@ -17,7 +17,19 @@ void ObstacleController::Reset() {
 
 // Avoid crashing into objects detected by the ultraound
 void ObstacleController::avoidObstacle() {
-    if (right < 0.8 || center < 0.8 || left < 0.8) {
+    
+    if(targetHeld){
+		if (right < 0.8 && center < 0.8 && left < 0.8) {
+      		result.type = precisionDriving;
+
+	      result.pd.cmdAngular = -K_angular;	
+
+	      result.pd.setPointVel = 0.0;
+	      result.pd.cmdVel = 0.0;
+	      result.pd.setPointYaw = 0;
+    }
+}
+    else if (right < 0.8 || center < 0.8 || left < 0.8) {
       result.type = precisionDriving;
 
       result.pd.cmdAngular = -K_angular;
